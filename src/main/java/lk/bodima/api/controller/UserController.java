@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor
@@ -24,5 +26,10 @@ public class UserController {
     @GetMapping(value = "/users/{user-id}" , headers = "X-Api-Version=v1")
     public ResponseEntity<UserResponse> getUser(@PathVariable("user-id") Long userId) throws UserNotFoundException {
         return new ResponseEntity<>(userService.getById(userId),HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/users", headers = "X-Api-Version=v1")
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 }

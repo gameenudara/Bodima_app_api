@@ -13,4 +13,6 @@ public interface UserService {
     UserResponse createUser(UserRequest userRequest);
 
     UserResponse getById(Long userId) throws UserNotFoundException;
+
+    List<UserResponse> getAll();
 }

@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -32,6 +33,11 @@ public class UserServiceImpl implements UserService {
                 () -> new UserNotFoundException (" User not found in id" + userId));
 
         return modelMapper.map(user,UserResponse.class);
+    }
+
+    @Override
+    public List<UserResponse> getAll() {
+        return userRepository.findAll().stream().map(user -> modelMapper.map(user,UserResponse.class)).collect(Collectors.toList());
     }
 }
 
