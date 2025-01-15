@@ -11,11 +11,8 @@ public class Advertisement extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
-
     private Double price;
-
     private String description;
 
     @Enumerated(EnumType.STRING)
@@ -25,9 +22,7 @@ public class Advertisement extends BaseEntity {
     private Category category;
 
     private String address;
-
     private String location;
-
     private String bedRooms;
 
     @Enumerated(EnumType.STRING)
