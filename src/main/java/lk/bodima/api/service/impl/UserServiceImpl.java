@@ -39,5 +39,16 @@ public class UserServiceImpl implements UserService {
     public List<UserResponse> getAll() {
         return userRepository.findAll().stream().map(user -> modelMapper.map(user,UserResponse.class)).collect(Collectors.toList());
     }
+
+    @Override
+    public UserResponse updateById(Long userId, UserRequest userRequest) throws UserNotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new UserNotFoundException (" User not found in id" + userId)
+        );
+        modelMapper.map(userRequest, user);
+        userRepository.save(user);
+
+        return modelMapper.map(user,UserResponse.class);
+    }
 }
 

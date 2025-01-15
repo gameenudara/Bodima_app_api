@@ -23,7 +23,7 @@ public class UserController {
         return new ResponseEntity<>(userService.createUser(userRequest), HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/users/{user-id}" , headers = "X-Api-Version=v1")
+    @GetMapping(value = "/users/{user-id}", headers = "X-Api-Version=v1")
     public ResponseEntity<UserResponse> getUser(@PathVariable("user-id") Long userId) throws UserNotFoundException {
         return new ResponseEntity<>(userService.getById(userId),HttpStatus.OK);
     }
@@ -31,5 +31,10 @@ public class UserController {
     @GetMapping(value = "/users", headers = "X-Api-Version=v1")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/users/{user-id}", headers = "X-Api-Version=v1")
+    public ResponseEntity<UserResponse> updateUser (@PathVariable("user-id") Long userId, @RequestBody UserRequest userRequest) throws UserNotFoundException {
+        return new ResponseEntity<>(userService.updateById(userId, userRequest), HttpStatus.OK);
     }
 }
