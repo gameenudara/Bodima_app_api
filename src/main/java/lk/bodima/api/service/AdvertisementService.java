@@ -5,8 +5,12 @@ import lk.bodima.api.controller.response.AdvertisementResponse;
 import lk.bodima.api.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface AdvertisementService {
 
     AdvertisementResponse createAdvertisement(Long userId, AdvertisementRequest advertisementRequest) throws UserNotFoundException;
+
+    List<AdvertisementResponse> getAllAdvertisements();
 }

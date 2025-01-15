@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor
@@ -20,5 +22,10 @@ public class AdvertisementController {
     @PostMapping(value = "/users/{user-id}/advertisements",headers = "X-Api-Version=v1")
     public ResponseEntity<AdvertisementResponse> createAdvertisement(@PathVariable("user-id") Long userId, @RequestBody AdvertisementRequest advertisementRequest) throws UserNotFoundException {
     return new ResponseEntity<>(advertisementService.createAdvertisement(userId, advertisementRequest), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/advertisements", headers = "X-Api-Version=v1")
+    public ResponseEntity<List<AdvertisementResponse>> getAllAdvertisements() {
+        return new ResponseEntity<>(advertisementService.getAllAdvertisements(),HttpStatus.OK);
     }
 }
