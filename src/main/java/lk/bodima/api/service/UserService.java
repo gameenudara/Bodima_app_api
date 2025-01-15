@@ -15,4 +15,6 @@ public interface UserService {
     UserResponse getById(Long userId) throws UserNotFoundException;
 
     List<UserResponse> getAll();
+
+    UserResponse updateById(Long userId, UserRequest userRequest) throws UserNotFoundException;
 }
