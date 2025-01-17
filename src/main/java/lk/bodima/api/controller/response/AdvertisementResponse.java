@@ -19,4 +19,5 @@ public class AdvertisementResponse {
     private VehicleParking vehicleParking;
     private PaymentDuration paymentDuration;
     private String imagesUrl;
+    private Long userId;
 }

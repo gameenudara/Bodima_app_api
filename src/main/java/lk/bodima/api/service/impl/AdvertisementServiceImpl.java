@@ -52,9 +52,23 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         Advertisement advertisement = advertisementRepository.findById(advertisementId).orElseThrow(
                 () -> new AdvertisementNotFoundException("Advertisement not found in ID: " + advertisementId)
         );
-        advertisement.setUser(user);
+
         AdvertisementResponse response = modelMapper.map(advertisement, AdvertisementResponse.class);
+        response.setUserId(user.getId());
         return response;
+    }
+
+    @Override
+    public AdvertisementResponse updateById(AdvertisementRequest advertisementRequest, Long userId, Long advertisementId) throws UserNotFoundException, AdvertisementNotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new UserNotFoundException("User not found in ID: " + userId)
+        );
+
+        Advertisement advertisement = advertisementRepository.findById(advertisementId).orElseThrow(
+                () -> new AdvertisementNotFoundException("Advertisement not found in ID: " + advertisementId)
+        );
+        modelMapper.map(advertisementRequest, advertisement);
+        return modelMapper.map(advertisementRepository.save(advertisement), AdvertisementResponse.class);
     }
 
 }
