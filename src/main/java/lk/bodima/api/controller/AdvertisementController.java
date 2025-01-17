@@ -33,4 +33,9 @@ public class AdvertisementController {
     public ResponseEntity<AdvertisementResponse> getById(@PathVariable("user-id") Long userId, @PathVariable("advertisement-id") Long advertisementId) throws UserNotFoundException, AdvertisementNotFoundException {
         return new ResponseEntity<>(advertisementService.getAdvertisementById(userId,advertisementId), HttpStatus.OK);
     }
+
+    @PutMapping(value = "/users/{user-id}/advertisements/{advertisement-id}", headers = "X-Api-Version=v1")
+    public ResponseEntity<AdvertisementResponse> updateById(@RequestBody AdvertisementRequest advertisementRequest,@PathVariable("user-id") Long userId, @PathVariable("advertisement-id") Long advertisementId) throws UserNotFoundException, AdvertisementNotFoundException {
+        return new ResponseEntity<>(advertisementService.updateById(advertisementRequest,userId,advertisementId), HttpStatus.OK);
+    }
 }

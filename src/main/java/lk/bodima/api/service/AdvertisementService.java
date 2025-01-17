@@ -16,4 +16,6 @@ public interface AdvertisementService {
     List<AdvertisementResponse> getAllAdvertisements();
 
     AdvertisementResponse getAdvertisementById(Long userId, Long advertisementId) throws UserNotFoundException, AdvertisementNotFoundException;
+
+    AdvertisementResponse updateById(AdvertisementRequest advertisementRequest,Long userId,Long advertisementId) throws UserNotFoundException, AdvertisementNotFoundException;
 }
