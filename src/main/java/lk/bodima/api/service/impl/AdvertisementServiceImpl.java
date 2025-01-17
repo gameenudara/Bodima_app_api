@@ -2,6 +2,7 @@ package lk.bodima.api.service.impl;
 
 import lk.bodima.api.controller.request.AdvertisementRequest;
 import lk.bodima.api.controller.response.AdvertisementResponse;
+import lk.bodima.api.exception.AdvertisementNotFoundException;
 import lk.bodima.api.exception.UserNotFoundException;
 import lk.bodima.api.model.Advertisement;
 import lk.bodima.api.model.User;
@@ -40,6 +41,20 @@ public class AdvertisementServiceImpl implements AdvertisementService {
                     .stream()
                     .map(ad -> modelMapper.map(ad, AdvertisementResponse.class))
                     .collect(Collectors.toList());
+    }
+
+    @Override
+    public AdvertisementResponse getAdvertisementById(Long userId, Long advertisementId) throws UserNotFoundException, AdvertisementNotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new UserNotFoundException("User not found in ID: " + userId)
+        );
+
+        Advertisement advertisement = advertisementRepository.findById(advertisementId).orElseThrow(
+                () -> new AdvertisementNotFoundException("Advertisement not found in ID: " + advertisementId)
+        );
+        advertisement.setUser(user);
+        AdvertisementResponse response = modelMapper.map(advertisement, AdvertisementResponse.class);
+        return response;
     }
 
 }
