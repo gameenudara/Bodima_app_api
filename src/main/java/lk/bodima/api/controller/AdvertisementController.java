@@ -2,8 +2,8 @@ package lk.bodima.api.controller;
 
 import lk.bodima.api.controller.request.AdvertisementRequest;
 import lk.bodima.api.controller.response.AdvertisementResponse;
+import lk.bodima.api.exception.AdvertisementNotFoundException;
 import lk.bodima.api.exception.UserNotFoundException;
-import lk.bodima.api.model.Advertisement;
 import lk.bodima.api.service.AdvertisementService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,5 +27,10 @@ public class AdvertisementController {
     @GetMapping(value = "/advertisements", headers = "X-Api-Version=v1")
     public ResponseEntity<List<AdvertisementResponse>> getAllAdvertisements() {
         return new ResponseEntity<>(advertisementService.getAllAdvertisements(),HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/users/{user-id}/advertisements/{advertisement-id}", headers = "X-Api-Version=v1")
+    public ResponseEntity<AdvertisementResponse> getById(@PathVariable("user-id") Long userId, @PathVariable("advertisement-id") Long advertisementId) throws UserNotFoundException, AdvertisementNotFoundException {
+        return new ResponseEntity<>(advertisementService.getAdvertisementById(userId,advertisementId), HttpStatus.OK);
     }
 }
